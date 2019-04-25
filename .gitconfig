@@ -1,0 +1,10 @@
+[user]
+	name = Tetrabyte
+	email = Byte@Tetranite.com
+	signingkey = A658DA327BD3A980C78A3B5FBE40C5856E642190
+[core]
+	filemode = false
+[commit]
+	gpgsign = true
+[advice]
+	ignoredHook = false
