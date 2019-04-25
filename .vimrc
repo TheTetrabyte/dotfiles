@@ -1,3 +1,20 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Install markdown plugin
+Plugin 'JamshedVesuna/vim-markdown-preview'
+let vim_markdown_preview_github=1
+let vim_markdown_preview_hotkey='<C-k>'
+
 " This is the oh my vim directory
 let $OH_MY_VIM="/home/byte/.oh-my-vim"
 let &runtimepath=substitute(&runtimepath, '^', $OH_MY_VIM.",", 'g')
