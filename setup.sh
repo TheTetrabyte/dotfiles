@@ -42,4 +42,8 @@ mkdir -p ~/.config/termite
 echo "Creating symlink for ~/.config/termite/config"
 ln -s $PWD/.config/termite/config ~/.config/termite/config
 
+# Installing fzf to replace default reverse search
+echo "Installing fzf"
+sudo pacman -S fzf --noconfirm
+
 echo "Setup finished"
