@@ -43,3 +43,8 @@ let g:oh_my_vim_packages=[
             \]
 
 exec ':so ' $OH_MY_VIM."/vimrc"
+
+" Disable wrapping
+set nowrap
+set textwidth=0
+set wrapmargin=0

@@ -16,8 +16,7 @@ sudo pacman -S zsh --noconfirm
 
 # Installing oh-my-zsh because it's better that way ;)
 echo "Installig oh-my-zsh"
-echo "Don't forget once you get into the zsh shell you need to press Ctrl + D to
-exit back to bash"
+echo "Don't forget once you get into the zsh shell you need to press Ctrl + D to exit back to bash"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # Delete existing .zshrc
@@ -40,7 +39,12 @@ ln -s $PWD/.vimrc ~/.vimrc
 
 # Installing oh-my-zim because it's better that way ;)
 echo "Installing oh-my-vim"
-curl -L https://raw.github.com/liangxianzhe/oh-my-vim/master/tools/install.sh | sh
+curl -L https://raw.github.com/liangxianzhe/oh-my-vim/master/tools/install.sh | shi
+
+# Installing vundle
+echo "Installing vundle"
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
 
 # Installing termite terminal
 echo "Installing termite"
