@@ -39,7 +39,7 @@ ln -s $PWD/.vimrc ~/.vimrc
 
 # Installing oh-my-zim because it's better that way ;)
 echo "Installing oh-my-vim"
-curl -L https://raw.github.com/liangxianzhe/oh-my-vim/master/tools/install.sh | shi
+curl -L https://raw.github.com/liangxianzhe/oh-my-vim/master/tools/install.sh | sh
 
 # Installing vundle
 echo "Installing vundle"
