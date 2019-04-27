@@ -48,3 +48,6 @@ exec ':so ' $OH_MY_VIM."/vimrc"
 set nowrap
 set textwidth=0
 set wrapmargin=0
+
+" Enable mouse clicks
+set mouse=a
