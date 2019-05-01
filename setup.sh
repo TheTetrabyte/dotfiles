@@ -46,6 +46,10 @@ echo "Installing vundle"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
+# Installing CtrlP fuzzy finder
+git clone https://github.com/kien/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim
+vim -c "helptags ~/.vim/bundle/ctrlp.vim/doc" -c q
+
 # Installing termite terminal
 echo "Installing termite"
 sudo pacman -S termite --noconfirm

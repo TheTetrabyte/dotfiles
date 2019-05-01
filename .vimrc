@@ -15,6 +15,9 @@ Plugin 'JamshedVesuna/vim-markdown-preview'
 let vim_markdown_preview_github=1
 let vim_markdown_preview_hotkey='<C-k>'
 
+" Installing surround.vim plugin
+Plugin 'tpope/vim-surround'
+
 " This is the oh my vim directory
 let $OH_MY_VIM="/home/byte/.oh-my-vim"
 let &runtimepath=substitute(&runtimepath, '^', $OH_MY_VIM.",", 'g')
@@ -43,6 +46,9 @@ let g:oh_my_vim_packages=[
             \]
 
 exec ':so ' $OH_MY_VIM."/vimrc"
+
+" Use CtrlP for fuzzy finding
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " Disable wrapping
 set nowrap
