@@ -12,4 +12,6 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR=/usr/bin/vim
 export TERM=xterm-256color
 
+alias projects="cd ~/Projects"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
