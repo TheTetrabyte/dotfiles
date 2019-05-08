@@ -14,4 +14,6 @@ export TERM=xterm-256color
 
 alias projects="cd ~/Projects"
 
+source ~/.secrets
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

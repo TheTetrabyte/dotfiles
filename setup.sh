@@ -69,6 +69,14 @@ else
     ln -s $PWD/.config/termite/config ~/.config/termite/config 
 fi
 
+# Installing tmux
+echo "Installing tmux"
+sudo pacman -S tmux
+
+# Installing .tmux.conf
+echo "Installing .tmux.conf"
+ln -s $PWD/.tmux.conf ~/.tmux.conf
+
 # Installing fzf to replace default reverse search
 echo "Installing fzf"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf

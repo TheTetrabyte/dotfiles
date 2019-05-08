@@ -40,7 +40,8 @@ color7  = #707880
 color15 = #c5c8c6
 
 [options]
-font = Dank Mono Regular 17px
+#font = Dank Mono Regular 17px
+font = Droid Sans Mono 17px
 icon_name = terminal
 scrollback_lines = 10000
 hyperlinks = true
