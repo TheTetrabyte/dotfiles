@@ -11,12 +11,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Install vue syntax highlighting
-Plugin 'posva/vim-vue'
-
-" Install markdown plugin
-Plugin 'JamshedVesuna/vim-markdown-preview'
-let vim_markdown_preview_github=1
-let vim_markdown_preview_hotkey='<C-k>'
+"Plugin 'posva/vim-vue'
 
 " Installing surround.vim plugin
 Plugin 'tpope/vim-surround'
@@ -28,12 +23,11 @@ Plugin 'editorconfig/editorconfig-vim'
 let $OH_MY_VIM="/home/byte/.oh-my-vim"
 let &runtimepath=substitute(&runtimepath, '^', $OH_MY_VIM.",", 'g')
 
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
 
 " Select the packages you need
 let g:oh_my_vim_packages=[
             \'vim',
-    	    \'vue',
             \'basic',
             \'code', 
             \'text', 
