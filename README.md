@@ -18,4 +18,4 @@
 
 ### Specs/Information
 
-![Neofetch](https://notify-me.is-a-good.site/PsFXA89v.png)
+![Neofetch](https://i.notifycdn.me/PsFXA89v.png)
