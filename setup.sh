@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# Setup script for installing some of the tools I use on linux
-# This uses pacman as the package manager, because arch is bae
+# Setup script for installing some of the tools I use on my mac system
+
+# Installing brew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # Delete existing .gitconfig
 rm ~/.gitconfig
@@ -12,7 +14,7 @@ ln -s $PWD/.gitconfig ~/.gitconfig
 
 # Installing ZSH
 echo "Installing ZSH"
-sudo pacman -S zsh --noconfirm
+brew install zsh
 
 # Installing oh-my-zsh because it's better that way ;)
 echo "Installig oh-my-zsh"
@@ -28,7 +30,7 @@ ln -s $PWD/.zshrc ~/.zshrc
 
 # Installing vim
 echo "Installing vim"
-sudo pacman -S vim --noconfirm
+brew install vim
 
 # Delete existing .vimrc
 rm ~/.vimrc
@@ -50,28 +52,9 @@ vim +PluginInstall +qall
 git clone https://github.com/kien/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim
 vim -c "helptags ~/.vim/bundle/ctrlp.vim/doc" -c q
 
-# Installing termite terminal
-echo "Installing termite"
-sudo pacman -S termite --noconfirm
-
-# Creating ~/.config directory for termite
-mkdir -p ~/.config/termite
-
- # Delete existing .termite config
-rm ~/.config/termite/config 
-
-# Creating symlink for termite config depending on laptop or not
-if [ "$1" == "laptop" ]; then
-    echo "Creating symlink for termite laptop config ~/.config/termite/config"
-    ln -s $PWD/.config/termite/laptop-config ~/.config/termite/config 
-else
-    echo "Creating symlink for ~/.config/termite/config"
-    ln -s $PWD/.config/termite/config ~/.config/termite/config 
-fi
-
 # Installing tmux
 echo "Installing tmux"
-sudo pacman -S tmux
+brew install tmux
 
 # Installing .tmux.conf
 echo "Installing .tmux.conf"
