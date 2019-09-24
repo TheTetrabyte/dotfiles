@@ -20,7 +20,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'editorconfig/editorconfig-vim'
 
 " This is the oh my vim directory
-let $OH_MY_VIM="$HOME/.oh-my-vim"
+let $OH_MY_VIM="/Users/byte/.oh-my-vim"
 let &runtimepath=substitute(&runtimepath, '^', $OH_MY_VIM.",", 'g')
 
 "let g:airline_powerline_fonts = 1
