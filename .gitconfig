@@ -1,10 +1,12 @@
 [user]
-	name = Tetrabyte
+	name = Dustin Rouillard
 	email = dustin@tetra.dev
-	signingkey = A658DA327BD3A980C78A3B5FBE40C5856E642190
+	signingkey = EB8D6E39FE5527F68592EA60FAFF30725A16282D
 [core]
 	filemode = false
 [commit]
-	gpgsign = true
+	gpgsign = false
 [advice]
 	ignoredHook = false
+[gpg]
+	program = gpg
