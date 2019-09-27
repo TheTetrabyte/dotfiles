@@ -5,7 +5,7 @@
 [core]
 	filemode = false
 [commit]
-	gpgsign = false
+	gpgsign = true
 [advice]
 	ignoredHook = false
 [gpg]
