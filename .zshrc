@@ -5,6 +5,7 @@ ZSH_THEME="agnoster"
 plugins=(
     git
     sudo
+    dotenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -15,12 +16,26 @@ export TERM=xterm-256color
 export GOPATH=/Users/byte/.gopath
 export GOHOME=$GOPATH/bin
 export GO111MODULE=on
-export PATH="$GOHOME:$PATH"
+export PATH="$GOHOME:/usr/local/Cellar/node/13.1.0/bin:/etc/deel/bin:$PATH"
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 alias projects="cd ~/Projects"
+alias gopath="cd $GOPATH/src"
+
+alias kattach="/usr/local/bin/kubectl attach -i -t"
+alias kget="/usr/local/bin/kubectl get"
+alias kdelete="/usr/local/bin/kubectl delete"
+alias k="/usr/local/bin/kubectl"
+
+alias eli="node ~/Projects/ghome/app.js"
 
 source ~/.secrets
 
@@ -39,8 +54,17 @@ if [ -f '/Users/byte/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/byte/googl
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/byte/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/byte/google-cloud-sdk/completion.zsh.inc'; fi
 
-export PATH="/usr/local/Cellar/openvpn/2.4.7/sbin:$PATH"
+export PATH="/usr/local/Cellar/openvpn/2.4.7/sbin:/usr/local/bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+kexec() {
+    COMMAND=$(printf '%s' "${@//$1/}")
+    /usr/local/bin/kubectl exec -it $1 $COMMAND
+}
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/usr/local/opt/node@10/bin:$PATH"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/vault vault

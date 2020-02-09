@@ -10,3 +10,5 @@
 	ignoredHook = false
 [gpg]
 	program = gpg
+[url "git@git.notify.me:"]
+	insteadOf = https://git.notify.me/
