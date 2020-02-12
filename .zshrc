@@ -33,9 +33,7 @@ alias gopath="cd $GOPATH/src"
 alias kattach="/usr/local/bin/kubectl attach -i -t"
 alias kget="/usr/local/bin/kubectl get"
 alias kdelete="/usr/local/bin/kubectl delete"
-alias k="/usr/local/bin/kubectl"
-
-alias eli="node ~/Projects/ghome/app.js"
+#alias k="/usr/local/bin/kubectl"
 
 source ~/.secrets
 
@@ -61,6 +59,18 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 kexec() {
     COMMAND=$(printf '%s' "${@//$1/}")
     /usr/local/bin/kubectl exec -it $1 $COMMAND
+}
+
+gcs() {
+    COMMAND=$1
+    BUCKET=$2
+
+    if [ $COMMAND = "size" ]; then
+        BUCKET_SIZE=$(gsutil du -sh $BUCKET)
+        echo "Bucket ${BUCKET:5} has $(echo $BUCKET_SIZE | cut -d" " -f1) $(echo $BUCKET_SIZE | cut -d" " -f2) used"
+    else;
+        gsutil $@
+    fi
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
