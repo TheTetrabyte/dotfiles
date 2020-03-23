@@ -1,7 +1,7 @@
 [user]
 	name = Dustin Rouillard
-	email = dustin@tetra.dev
-	signingkey = EB8D6E39FE5527F68592EA60FAFF30725A16282D
+	email = me@dustin.sh
+	signingkey = 96E42E4EAAF3AA8CBCA568A3A6DD3D17EFFC21D7
 [core]
 	filemode = false
 [commit]

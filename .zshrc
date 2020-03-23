@@ -73,8 +73,29 @@ gcs() {
     fi
 }
 
+pbedit() {
+    local _t=$(mktemp)
+    chmod 600 "$_t"
+
+    pbpaste > "$_t"
+    ${EDITOR:-vi} "$_t"
+    pbcopy < "$_t"
+
+    rm -f "$_t"
+}
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/usr/local/opt/node@10/bin:$PATH"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
+
+export OH_MY_NEOVIM=/Users/byte/.oh-my-neovim
+
+export OH_MY_NEOVIM_EXTENSIONS="default git go gpg javascript json neomake nodejs react tmux typescript vim web"
+
+source /Users/byte/.oh-my-neovim/tools/functions.sh
+
+PATH="/Users/byte/.gem/ruby/2.6.0/bin:$PATH"
+
+PATH="/Users/byte/.node_modules_global/bin:$PATH"
