@@ -3,7 +3,7 @@
 # Setup script for installing some of the tools I use on my mac system
 
 # Installing brew
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
 # Delete existing .gitconfig
 rm ~/.gitconfig

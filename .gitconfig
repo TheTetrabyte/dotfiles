@@ -10,5 +10,13 @@
 	ignoredHook = false
 [gpg]
 	program = gpg
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+	
 [url "git@git.notify.me:"]
 	insteadOf = https://git.notify.me/
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
