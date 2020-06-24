@@ -116,6 +116,13 @@ pbedit() {
     rm -f "$_t"
 }
 
+personal() {
+	echo "Setting gcloud to match personal project"
+	gcloud config set account me@dustin.sh &>/dev/null
+	gcloud config set project dustin-rouillard &>/dev/null
+	gcloud container clusters get-credentials personal --zone us-east1-d &>/dev/null
+}
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/usr/local/opt/node@10/bin:$PATH"
 
@@ -125,8 +132,12 @@ complete -o nospace -C /usr/local/bin/vault vault
 export OH_MY_NEOVIM=/Users/dustinrouillard/.oh-my-neovim
 export OH_MY_NEOVIM_EXTENSIONS="default git go gpg javascript json neomake nodejs react tmux typescript vim web"
 source /Users/dustinrouillard/.oh-my-neovim/tools/functions.sh
+
 source ~/.notify_cli
 source ~/.hiven_cli
 
-PATH="/Users/dustinrouillard/.gem/ruby/2.6.0/bin:$PATH"
-PATH="/Users/dustinrouillard/.node_modules_global/bin:$PATH"
+export DENO_INSTALL="/Users/dustinrouillard/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
+export PATH="/Users/dustinrouillard/.gem/ruby/2.6.0/bin:$PATH"
+export PATH="/Users/dustinrouillard/.node_modules_global/bin:$PATH"
