@@ -5,6 +5,17 @@
 # Installing brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
+# Installing skhd
+brew install koekeishiya/formulae/skhd
+brew services start skhd
+
+# Delete existing .skhdrc
+rm ~/.skhdrc
+
+# Create symlink for .skhdrc
+echo "Creating symlink for .skhdrc"
+ln -s $PWD/.skhdrc ~/.skhdrc
+
 # Delete existing .gitconfig
 rm ~/.gitconfig
 

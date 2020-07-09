@@ -1,7 +1,7 @@
 [user]
 	name = Dustin Rouillard
 	email = me@dustin.sh
-	signingkey = 96E42E4EAAF3AA8CBCA568A3A6DD3D17EFFC21D7
+	signingkey = 5A15DE7199AEA103C6514F713E3A830B9957F6A3
 [core]
 	filemode = false
 [commit]

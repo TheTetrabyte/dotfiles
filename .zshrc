@@ -1,6 +1,6 @@
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="agnoster"
+ZSH_THEME="avit"
 
 plugins=(
     git
@@ -12,7 +12,7 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR=/usr/bin/vim
 export TERM=xterm-256color
 
-export GOPATH=/Users/dustinrouillard/.gopath
+export GOPATH=/Users/dustin/.gopath
 export GOHOME=$GOPATH/bin
 export GO111MODULE=on
 export PATH="$GOHOME:/usr/local/Cellar/node/13.1.0/bin:/etc/deel/bin:$PATH"
@@ -45,25 +45,43 @@ source ~/.secrets
 #    echo $FILE_URL
 #}
 
+preexec () {
+  # Prep for tracking weekly commands run
+  TOKEN=$(jwt dustin.sh/api $PERSONAL_API_INTERNAL_SECRET)
+  curl -X "POST" "http://localhost:1300/stats/track/commands" -H "Authorization: $TOKEN" -s &>/dev/null
+  if [[ $1 = "docker build"* ]]; then
+    curl -X "POST" "http://localhost:1300/stats/track/docker" -H "Authorization: $TOKEN" -s &>/dev/null
+  fi
+}
+
 upload() {
-	FILE="${PWD}/${@}"
-	~/Projects/Personal/mac-screenshot/upload-gcs.sh ${FILE}
+	FILE="${PWD}/${1}"
+	~/Projects/Personal/mac-screenshot/upload-gcs.sh ${FILE} $2
 }
 
 screenshot() {	
 	~/Projects/Personal/mac-screenshot/screenshot-gcs.sh
 }
 
-shorten() {
+jwt() {
 	if [ "$1" = "" ]; then; return 1; fi
 
+	JWT_ISSUER="$1"
+	JWT_SECRET="$2"
 	JWT_EXPIRY="$(($(date +%s)+30))"
 
 	HEADER="$(echo -n '{"alg":"HS256","typ":"JWT"}' | openssl base64 -e -A | sed s/\+/-/g | sed -E s/=+$// | sed 's/\//_/g')"
-	PAYLOAD="$(echo -n '{"iss":"dustin.click","exp":'$JWT_EXPIRY'}' | openssl base64 -e -A | sed s/\+/-/g | sed -E s/=+$// | sed 's/\//_/g')"
-	SIGNATURE="$(echo -n ${HEADER}.${PAYLOAD} | openssl dgst -sha256 -hmac $PERSONAL_SHORTENER_JWT_SECRET -binary | openssl base64 -e -A | sed s/\+/-/g | sed -E s/=+$// | sed 's/\//_/g')"
+	PAYLOAD="$(echo -n '{"iss":"'${JWT_ISSUER}'","exp":'$JWT_EXPIRY'}' | openssl base64 -e -A | sed s/\+/-/g | sed -E s/=+$// | sed 's/\//_/g')"
+	SIGNATURE="$(echo -n ${HEADER}.${PAYLOAD} | openssl dgst -sha256 -hmac $JWT_SECRET -binary | openssl base64 -e -A | sed s/\+/-/g | sed -E s/=+$// | sed 's/\//_/g')"
 
-	TOKEN="$(echo ${HEADER}.${PAYLOAD}.${SIGNATURE})"
+	TOKEN="${HEADER}.${PAYLOAD}.${SIGNATURE}"
+	echo $TOKEN
+}
+
+shorten() {
+	if [ "$1" = "" ]; then; return 1; fi
+
+	TOKEN=$(jwt dustin.click $PERSONAL_SHORTENER_JWT_SECRET)
 
 	if [ "$2" = "" ]; then;
 		URL_CODE=$(http POST https://dustin.link/create Authorization:$TOKEN target=$1 | jq -r .code)
@@ -79,10 +97,10 @@ shorten() {
 export GPG_TTY=$(tty) 
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/dustinrouillard/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dustinrouillard/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/dustin/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dustin/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/dustinrouillard/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dustinrouillard/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/dustin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dustin/google-cloud-sdk/completion.zsh.inc'; fi
 
 export PATH="/usr/local/Cellar/openvpn/2.4.7/sbin:/usr/local/bin:$PATH"
 
@@ -129,15 +147,15 @@ export PATH="/usr/local/opt/node@10/bin:$PATH"
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
 
-export OH_MY_NEOVIM=/Users/dustinrouillard/.oh-my-neovim
+export OH_MY_NEOVIM=/Users/dustin/.oh-my-neovim
 export OH_MY_NEOVIM_EXTENSIONS="default git go gpg javascript json neomake nodejs react tmux typescript vim web"
-source /Users/dustinrouillard/.oh-my-neovim/tools/functions.sh
+source /Users/dustin/.oh-my-neovim/tools/functions.sh
 
 source ~/.notify_cli
 source ~/.hiven_cli
 
-export DENO_INSTALL="/Users/dustinrouillard/.deno"
+export DENO_INSTALL="/Users/dustin/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
-export PATH="/Users/dustinrouillard/.gem/ruby/2.6.0/bin:$PATH"
-export PATH="/Users/dustinrouillard/.node_modules_global/bin:$PATH"
+export PATH="/Users/dustin/.gem/ruby/2.6.0/bin:$PATH"
+export PATH="/Users/dustin/.node_modules_global/bin:$PATH"
