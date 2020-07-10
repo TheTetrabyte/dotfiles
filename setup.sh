@@ -76,4 +76,9 @@ echo "Installing fzf"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
+# Installing jwt utility
+echo "Linking jwt utility"
+rm -rf ~/.jwt
+ln -s $PWD/.jwt ~/.jwt
+
 echo "Setup finished" 

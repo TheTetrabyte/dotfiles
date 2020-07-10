@@ -37,6 +37,7 @@ alias kdelete="/usr/local/bin/kubectl delete"
 #alias k="/usr/local/bin/kubectl"
 
 source ~/.secrets
+source ~/.jwt
 
 #upload() {
 #    FILE_URL=$(curl -F "file=@$1" $UPLOADER_URL -H "token: $UPLOADER_TOKEN" -s)
@@ -61,21 +62,6 @@ upload() {
 
 screenshot() {	
 	~/Projects/Personal/mac-screenshot/screenshot-gcs.sh
-}
-
-jwt() {
-	if [ "$1" = "" ]; then; return 1; fi
-
-	JWT_ISSUER="$1"
-	JWT_SECRET="$2"
-	JWT_EXPIRY="$(($(date +%s)+30))"
-
-	HEADER="$(echo -n '{"alg":"HS256","typ":"JWT"}' | openssl base64 -e -A | sed s/\+/-/g | sed -E s/=+$// | sed 's/\//_/g')"
-	PAYLOAD="$(echo -n '{"iss":"'${JWT_ISSUER}'","exp":'$JWT_EXPIRY'}' | openssl base64 -e -A | sed s/\+/-/g | sed -E s/=+$// | sed 's/\//_/g')"
-	SIGNATURE="$(echo -n ${HEADER}.${PAYLOAD} | openssl dgst -sha256 -hmac $JWT_SECRET -binary | openssl base64 -e -A | sed s/\+/-/g | sed -E s/=+$// | sed 's/\//_/g')"
-
-	TOKEN="${HEADER}.${PAYLOAD}.${SIGNATURE}"
-	echo $TOKEN
 }
 
 shorten() {
@@ -151,6 +137,7 @@ export OH_MY_NEOVIM=/Users/dustin/.oh-my-neovim
 export OH_MY_NEOVIM_EXTENSIONS="default git go gpg javascript json neomake nodejs react tmux typescript vim web"
 source /Users/dustin/.oh-my-neovim/tools/functions.sh
 
+source ~/.jwt
 source ~/.notify_cli
 source ~/.hiven_cli
 
