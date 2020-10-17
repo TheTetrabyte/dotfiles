@@ -39,29 +39,22 @@ alias kdelete="/usr/local/bin/kubectl delete"
 source ~/.secrets
 source ~/.jwt
 
-#upload() {
-#    FILE_URL=$(curl -F "file=@$1" $UPLOADER_URL -H "token: $UPLOADER_TOKEN" -s)
-#    osascript -e 'display notification "'"$FILE_URL"'" with title "Upload Successful"'
-#    echo $FILE_URL | pbcopy
-#    echo $FILE_URL
-#}
-
 preexec () {
   # Prep for tracking weekly commands run
   TOKEN=$(jwt dustin.sh/api $PERSONAL_API_INTERNAL_SECRET)
-  curl -X "POST" "http://localhost:1300/stats/track/commands" -H "Authorization: $TOKEN" -s &>/dev/null
+  curl -X "POST" "${PERSONAL_API_HOST}/stats/track/commands" -H "Authorization: $TOKEN" -s &>/dev/null
   if [[ $1 = "docker build"* ]]; then
-    curl -X "POST" "http://localhost:1300/stats/track/docker" -H "Authorization: $TOKEN" -s &>/dev/null
+    curl -X "POST" "${PERSONAL_API_HOST}/stats/track/docker" -H "Authorization: $TOKEN" -s &>/dev/null
   fi
 }
 
 upload() {
 	FILE="${PWD}/${1}"
-	~/Projects/Personal/mac-screenshot/upload-gcs.sh ${FILE} $2
+	~/Projects/Personal/mac-screenshot/upload-api.sh ${FILE} $2
 }
 
 screenshot() {	
-	~/Projects/Personal/mac-screenshot/screenshot-gcs.sh
+	~/Projects/Personal/mac-screenshot/screenshot-api.sh
 }
 
 shorten() {
@@ -70,13 +63,13 @@ shorten() {
 	TOKEN=$(jwt dustin.click $PERSONAL_SHORTENER_JWT_SECRET)
 
 	if [ "$2" = "" ]; then;
-		URL_CODE=$(http POST https://dustin.link/create Authorization:$TOKEN target=$1 | jq -r .code)
+		URL_CODE=$(http POST https://dstn.to/create Authorization:$TOKEN target=$1 | jq -r .code)
 	else
-		URL_CODE=$(http POST https://dustin.link/create Authorization:$TOKEN target=$1 code=$2 | jq -r .code)
+		URL_CODE=$(http POST https://dstn.to/create Authorization:$TOKEN target=$1 code=$2 | jq -r .code)
 	fi
 
-	echo "Shortened URL $1 -> https://dustin.link/$URL_CODE"
-	echo "https://dustin.link/$URL_CODE" | pbcopy
+	echo "Shortened URL $1 -> https://dstn.to/$URL_CODE"
+	echo "https://dstn.to/$URL_CODE" | pbcopy
 	return 0
 }
 
@@ -88,7 +81,8 @@ if [ -f '/Users/dustin/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dustin/g
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/dustin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dustin/google-cloud-sdk/completion.zsh.inc'; fi
 
-export PATH="/usr/local/Cellar/openvpn/2.4.7/sbin:/usr/local/bin:$PATH"
+export ANDROID_SDK_ROOT="${HOME}/.android"
+export PATH="/usr/local/Cellar/openvpn/2.4.7/sbin:/usr/local/bin:${HOME}/.android/tools/bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -129,6 +123,9 @@ personal() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/usr/local/opt/node@10/bin:$PATH"
+export PATH="${PATH}:${HOME}/.krew/bin"
+
+source ~/.system-theme-sync-iterm2  
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
@@ -137,7 +134,6 @@ export OH_MY_NEOVIM=/Users/dustin/.oh-my-neovim
 export OH_MY_NEOVIM_EXTENSIONS="default git go gpg javascript json neomake nodejs react tmux typescript vim web"
 source /Users/dustin/.oh-my-neovim/tools/functions.sh
 
-source ~/.jwt
 source ~/.notify_cli
 source ~/.hiven_cli
 
